@@ -1,0 +1,18 @@
+@startuml
+
+title show prediction
+
+(*) --> "
+{{
+  salt
+  {+
+    "sprint 1"
+    　
+    category    | estimated | actual
+    feature     | 3sp       | 3sp
+    refactoring | 2sp       | 1sp
+  }
+}}
+" as prediction
+
+@enduml

@@ -1,0 +1,22 @@
+@startuml
+
+title bulk execution
+
+(*) --> "
+{{
+  salt
+  {+
+       　| "create milestone -t sprint 2 ...     " | "result"
+       　| "create issue -t implement ...        " | "result"
+       　| "create issue -t test ...             " | "result"
+       　| "create issue -t review ...           " | "result"
+       　| "create issue ｜<tab>                 " | "result"
+       　|  -t -b -l -a -p -m -e                   | 　
+    [X]　| "create issue -t regular meeting 1 ..." | "result"
+    [ ]　| "create issue -t regular meeting 2 ..." | "result"
+    [execute all]
+  }
+}}
+" as bulk
+
+@enduml

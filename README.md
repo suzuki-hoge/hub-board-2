@@ -49,7 +49,7 @@ option | type              | constraint | default
 -n     | int               | require    | -                  
 -t     | string            | require    | -                  
 -b     | string            |            | no body            
--l     | string [, string] |            | no labels          
+-l     | string [, string] |            | same labels          
 -a     | string [, string] |            | no assignees       
 -p     | string            |            | same pipeline      
 -m     | string            |            | same milestone     
@@ -77,7 +77,7 @@ option | type              | constraint | default
 :--    | :--               | :--        | :--                
 -t     | string            | require    | -                  
 -b     | string            |            | no body            
--l     | string [, string] |            | no labels          
+-l     | string [, string] |            | same labels          
 -a     | string [, string] |            | no assignees       
 -p     | string            |            | same pipeline      
 -m     | string            |            | same milestone     

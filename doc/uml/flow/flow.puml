@@ -1,0 +1,46 @@
+@startuml
+
+participant client
+participant server
+participant configure
+participant github
+participant zenhub
+
+== boot ==
+
+server -> configure : \n\nread owner and repository and repository-id
+server -> configure :     read team members
+server -> configure :     read ignore labels
+server -> configure :     read preset issues
+server -> configure :     read tokens
+
+server -> github : \n\nfetch labels
+server -> github :     fetch assignees
+server -> github :     fetch milestones
+server -> zenhub :     fetch pipelines
+
+== edit commands ==
+
+loop complete
+    client -> server : \n\ncommand and cursor position
+    client <- server :     complementary candidates
+end
+
+== create objects ==
+
+loop post
+    client -> server : \n\npost command
+    server -> server : validate
+    server -> github : call api
+    server -> zenhub : call api
+    client <- server : return result
+end
+
+== show prediction ==
+
+client -> server : \n\npost milestone
+server -> github : call api
+server -> zenhub : call api
+client <- server : return estimated results and actual results
+
+@enduml

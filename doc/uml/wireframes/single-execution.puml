@@ -1,0 +1,24 @@
+@startuml
+
+title single execution from chrome\n( with pre writing by get parameters )
+
+(*) --> "
+{{
+  salt
+  {+
+    issue viewing ( chrome )
+  }
+}}
+" as chrome
+
+chrome --> "
+{{
+  salt
+  {+
+    "issue crunch -n 3 ...     " | "result"
+    [execute]
+  }
+}}
+" as single
+
+@enduml
