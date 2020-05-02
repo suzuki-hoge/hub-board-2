@@ -10,15 +10,15 @@ package domain {
             - IssueNumber
             - Title
             - Body
-            - Labels
-            - Assignees
+            - LabelNames
+            - AssigneeNames
             - PipelineId
             - MilestoneName
             - Estimate
 
-            + CopyRequest copy(\n  Title, <Body>, Labels, Assignees, <PipelineId>, <MilestoneName>, <Estimate>\n)
-            + Either<Error, CutRequest> cut(\n  Title, <Body>, Labels, Assignees, <PipelineId>, <MilestoneName>, <Estimate>\n)
-            + CrunchRequests crunch(\n  <BaseTitle>, [(Title, <Body>, Labels, Assignees, <PipelineId>, <MilestoneName>, <Estimate>)]\n)
+            + CopyRequest copy(\n  Title, <Body>, LabelNames, AssigneeNames, <PipelineId>, <MilestoneName>, <Estimate>\n)
+            + Either<Error, CutRequest> cut(\n  Title, <Body>, LabelNames, AssigneeNames, <PipelineId>, <MilestoneName>, <Estimate>\n)
+            + CrunchRequests crunch(\n  <BaseTitle>, [(Title, <Body>, LabelNames, AssigneeNames, <PipelineId>, <MilestoneName>, <Estimate>)]\n)
         }
 
         class IssueNumber {
@@ -40,25 +40,25 @@ package domain {
             - String
         }
 
-        class Labels {
-            + Labels ifMissing(Labels)
+        class LabelNames {
+            + LabelNames ifMissing(LabelNames)
         }
 
-        class Label {
+        class LabelName {
             - String
         }
 
-        Labels -u-> "*" Label
+        LabelNames -u-> "*" LabelName
 
-        class Assignees {
-            + Assignees ifMissing(Assignees)
+        class AssigneeNames {
+            + AssigneeNames ifMissing(AssigneeNames)
         }
 
-        class Assignee {
+        class AssigneeName {
             - String
         }
 
-        Assignees -u-> "*" Assignee
+        AssigneeNames -u-> "*" AssigneeName
 
         class PipelineId {
             - String
@@ -77,8 +77,8 @@ package domain {
         Issue -u-> BaseTitle
         Issue -u-> Title
         Issue -u-> Body
-        Issue -u-> Labels
-        Issue -u-> Assignees
+        Issue -u-> LabelNames
+        Issue -u-> AssigneeNames
         Issue -u-> PipelineId
         Issue -u--> Estimate
 
@@ -97,8 +97,8 @@ package domain {
             class Creation {
                 - Title
                 - <Body>
-                - Labels
-                - Assignees
+                - LabelNames
+                - AssigneeNames
                 - <PipelineId>
                 - MilestoneName
                 - Estimate
@@ -106,7 +106,7 @@ package domain {
 
             class CreateRequest {
                 - Creation
-                + {static} CreateRequest apply(\n  Title, <Body>, Labels, Assignees, <PipelineId>, <MilestoneName>, <Estimate>, CurrentMilestoneName\n)
+                + {static} CreateRequest apply(\n  Title, <Body>, LabelNames, AssigneeNames, <PipelineId>, <MilestoneName>, <Estimate>, CurrentMilestoneName\n)
             }
 
             CreateRequest -u-> Creation
