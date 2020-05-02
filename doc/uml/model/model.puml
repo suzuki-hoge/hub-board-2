@@ -1,0 +1,209 @@
+@startuml
+
+note "legend\n\nList<String>: [String]\nTuple<String, Int>: (String, Int)\nOption<String>: <String>" as Note
+
+Note .[hidden]d. domain
+
+package domain {
+    package issue {
+        class Issue {
+            - IssueNumber
+            - Title
+            - Body
+            - Labels
+            - Assignees
+            - PipelineId
+            - MilestoneName
+            - Estimate
+
+            + CopyRequest copy(\n  Title, <Body>, Labels, Assignees, <PipelineId>, <MilestoneName>, <Estimate>\n)
+            + Either<Error, CutRequest> cut(\n  Title, <Body>, Labels, Assignees, <PipelineId>, <MilestoneName>, <Estimate>\n)
+            + CrunchRequests crunch(\n  <BaseTitle>, [(Title, <Body>, Labels, Assignees, <PipelineId>, <MilestoneName>, <Estimate>)]\n)
+        }
+
+        class IssueNumber {
+            - Int
+        }
+
+        class BaseTitle {
+            - String
+        }
+
+        class Title {
+            - String
+            + Title joined(<BaseTitle>)
+        }
+
+        Title -r-> BaseTitle
+
+        class Body {
+            - String
+        }
+
+        class Labels {
+            + Labels ifMissing(Labels)
+        }
+
+        class Label {
+            - String
+        }
+
+        Labels -u-> "*" Label
+
+        class Assignees {
+            + Assignees ifMissing(Assignees)
+        }
+
+        class Assignee {
+            - String
+        }
+
+        Assignees -u-> "*" Assignee
+
+        class PipelineId {
+            - String
+            + PipelineId ifMissing(<PipelineId>)
+        }
+
+        class Estimate {
+            - Int
+            + Boolean <(Estimate)
+            + Estimate +(Estimate)
+            + Estimate ifMissing(<Estimate>)
+            + {static} Estimate zero
+        }
+
+        Issue -u--> IssueNumber
+        Issue -u-> BaseTitle
+        Issue -u-> Title
+        Issue -u-> Body
+        Issue -u-> Labels
+        Issue -u-> Assignees
+        Issue -u-> PipelineId
+        Issue -u--> Estimate
+
+        enum Error {
+            OriginEstimateIsLessThanNewEstimate
+        }
+
+        interface IssueRepository {
+            + Issue findOne(IssueNumber)
+            + Issue create(CreateRequest)
+            + Issue cut(CutRequest)
+            + Issue crunch(CrunchRequests)
+        }
+
+        package request {
+            class Creation {
+                - Title
+                - <Body>
+                - Labels
+                - Assignees
+                - <PipelineId>
+                - MilestoneName
+                - Estimate
+            }
+
+            class CreateRequest {
+                - Creation
+                + {static} CreateRequest apply(\n  Title, <Body>, Labels, Assignees, <PipelineId>, <MilestoneName>, <Estimate>, CurrentMilestoneName\n)
+            }
+
+            CreateRequest -u-> Creation
+
+            class CopyRequest {
+                - Creation
+            }
+
+            CopyRequest ---> Creation
+
+            class CutRequest {
+                - Creation
+                - CutComment
+                - EstimateSubtraction
+                - <OriginIssueClosing>
+            }
+
+            CutRequest --> Creation
+            CutRequest --> CutComment
+            CutRequest -r-> EstimateSubtraction
+            CutRequest --> "0..1" OriginIssueClosing
+
+            class CrunchRequests {
+                - [CrunchRequest]
+                - EstimateSubtraction
+                - <OriginIssueClosing>
+            }
+
+            class CrunchRequest {
+                - Creation
+                - CrunchComment
+            }
+
+
+            CrunchRequests -l-> EstimateSubtraction
+            CrunchRequests --> "0..1" OriginIssueClosing
+
+            CrunchRequests --> "*" CrunchRequest
+
+            CrunchRequest --> Creation
+            CrunchRequest --> CrunchComment
+
+            class CutComment {
+                - IssueNumber
+            }
+
+            class CrunchComment {
+                - IssueNumber
+            }
+
+            class EstimateSubtraction {
+                - IssueNumber
+                - Estimate
+            }
+
+            class OriginIssueClosing {
+                - IssueNumber
+            }
+        }
+
+        IssueRepository -l-> Issue
+        IssueRepository -d-> request
+        Issue -l-> Error
+
+        Issue -d-> CopyRequest
+        Issue -d-> CutRequest
+        Issue -d-> CrunchRequests
+    }
+
+    package milestone {
+        class Milestone {
+            - MilestoneName
+            - Start
+            - End
+        }
+
+        class MilestoneName {
+            - String
+            + MilestoneName ifMissing(<MilestoneName>)
+        }
+
+        class CurrentMilestoneName {
+            - String
+            + MilestoneName ifMissing(<MilestoneName>)
+        }
+
+        interface MilestoneRepository {
+            CurrentMilestoneName current(LocalDate)
+            create(Milestone)
+        }
+
+        MilestoneRepository -r-> Milestone
+
+        Milestone -d-> MilestoneName
+
+        CurrentMilestoneName -r-> MilestoneName
+    }
+}
+
+@enduml

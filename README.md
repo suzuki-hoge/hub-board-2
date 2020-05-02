@@ -27,15 +27,23 @@ option | type              | constraint | default
 -m     | string            |            | current milestone  
 -e     | int               |            | 0                  
 
-### issue assign ( idempotency )
+### issue copy ( no idempotency )
 ```
-$ issue assign -n 3 -a 'Jane'
+$ issue copy -n 3 -t 'review'
 ```
 
-option | type     | constraint | default          
-:--    | :--      | :--        | :--              
--n     | int      | require    | -                
--a     | string   | require    | -
+options
+
+option | type              | constraint | default            
+:--    | :--               | :--        | :--                
+-n     | int               | require    | -                  
+-t     | string            | require    | -                  
+-b     | string            |            | no body            
+-l     | string [, string] |            | same labels        
+-a     | string [, string] |            | same assignees     
+-p     | string            |            | same pipeline      
+-m     | string            |            | same milestone     
+-e     | int               |            | same estimate      
 
 ### issue cut ( no idempotency )
 ```
@@ -49,15 +57,15 @@ option | type              | constraint | default
 -n     | int               | require    | -                  
 -t     | string            | require    | -                  
 -b     | string            |            | no body            
--l     | string [, string] |            | same labels          
--a     | string [, string] |            | no assignees       
+-l     | string [, string] |            | same labels        
+-a     | string [, string] |            | same assignees     
 -p     | string            |            | same pipeline      
 -m     | string            |            | same milestone     
 -e     | int               |            | 0                  
 
-create new issue, then comment `cut from #x` to new issue and comment `cut to #x ( xsp )` to origin issue.
-
-failure if new estimate is greater than origin estimate.
++ create new issue, then comment `cut from #x` to new issue.
++ close origin issue if origin issue's estimate became zero.
++ failure if origin issue's estimate is less than new issue's estimate.
 
 ### issue crunch ( no idempotency )
 ```
@@ -69,7 +77,7 @@ options
 option | type     | constraint         | default          
 :--    | :--      | :--                | :--              
 -n     | int      | require            | -                
--bt    | string   |                    | no base title                
+-bt    | string   |                    | no base title    
 
 options for issues separated with `|`
 
@@ -77,26 +85,35 @@ option | type              | constraint | default
 :--    | :--               | :--        | :--                
 -t     | string            | require    | -                  
 -b     | string            |            | no body            
--l     | string [, string] |            | same labels          
--a     | string [, string] |            | no assignees       
+-l     | string [, string] |            | same labels        
+-a     | string [, string] |            | same assignees     
 -p     | string            |            | same pipeline      
 -m     | string            |            | same milestone     
 -e     | int               |            | 0                  
 
-create new issues, then comment `crunched from #x` to new issues and comment `crunch to #x ( xsp ), #x ( xsp )` to origin issue. then close origin issue.
++ create new issues, then comment `crunched from #x` to new issues.
++ close origin issue if origin issue's estimate became zero.
 
-failure if sum of new estimates not equals origin estimate.
+### issue assign ( idempotency )
+```
+$ issue assign -n 3 -a 'Jane'
+```
+
+option | type     | constraint | default          
+:--    | :--      | :--        | :--              
+-n     | int      | require    | -                
+-a     | string   | require    | -
 
 ### milestone create ( idempotency )
 ```
-$ milestone create -t 'sprint 2' -s '2020/04/01' -e '2020/04/08'
+$ milestone create -n 'sprint 2' -s '2020/04/01' -e '2020/04/08'
 ```
 
 options
 
 option | type   | constraint | default
 :--    | :--    | :--        | :--    
--t     | string | require    | -      
+-n     | string | require    | -      
 -s     | string | require    | -      
 -e     | string | require    | -      
 
