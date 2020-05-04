@@ -1,0 +1,70 @@
+@startuml
+
+note "legend\n\nList<String>: [String]\nTuple<String, Int>: (String, Int)\nOption<String>: <String>" as Note
+
+Note .[hidden]d. complete
+
+package complete {
+    class Label {
+        - String value
+        - String color
+    }
+
+    class Assignee {
+        - String value
+        - String iconUrl
+    }
+
+    class PipelineName {
+        - String value
+    }
+
+    class MilestoneName {
+        - String value
+    }
+
+    class OptionKey {
+        - String value
+        - String desc
+    }
+
+    class FixedOption
+
+    FixedOption --> OptionKey
+    FixedOption --> OptionVal
+
+    interface UnfixedOption
+
+    class KeyFixed
+
+    KeyFixed --> OptionKey
+
+    class ValWriting
+
+    ValWriting --> OptionKey
+    ValWriting --> OptionVal
+
+    Hole       -u-|> UnfixedOption
+    KeyUnfixed -u-|> UnfixedOption
+    KeyFixed   -u-|> UnfixedOption
+    ValWriting -u-|> UnfixedOption
+
+    interface Candidate
+
+    Label         -u-|> Candidate
+    Assignee      -u-|> Candidate
+    PipelineName  -u-|> Candidate
+    MilestoneName -u-|> Candidate
+    NoCandidate   -u-|> Candidate
+    OptionKey     -u-|> Candidate
+
+    class CommandParser {
+        + [Candidate] apply(String, [Label], [Assignee], [PipelineName], [MilestoneName])
+    }
+
+    CommandParser -l-> "*" Candidate : > out
+    CommandParser --> "*" FixedOption
+    CommandParser -r-> UnfixedOption
+}
+
+@enduml
