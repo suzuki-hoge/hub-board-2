@@ -5,7 +5,7 @@ import command.domain.milestone.{CurrentMilestoneName, MilestoneName}
 case class CreateRequest(creation: Creation)
 
 object CreateRequest {
-  def apply(
+  def of(
              reqT: Title, reqB: Option[Body], reqLs: LabelNames, reqAs: AssigneeNames, reqP: Option[PipelineId],
              reqM: Option[MilestoneName], reqE: Option[Estimate], cm: CurrentMilestoneName): CreateRequest = CreateRequest(
     Creation(reqT, reqB, reqLs, reqAs, reqP, cm ifMissing reqM, Estimate.zero ifMissing reqE)

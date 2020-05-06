@@ -33,7 +33,7 @@ case class PipelineId(v: String) {
   def ifMissing(other: Option[PipelineId]): Option[PipelineId] = other.orElse(Some(this))
 }
 
-case class Estimate(v: Int) {
+case class Estimate(v: Float) {
   def <(other: Estimate): Boolean = v < other.v
 
   def +(other: Estimate): Estimate = Estimate(other.v + v)

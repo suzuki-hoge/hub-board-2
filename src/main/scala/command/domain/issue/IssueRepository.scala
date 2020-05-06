@@ -3,9 +3,9 @@ package command.domain.issue
 trait IssueRepository {
   def findOne(n: IssueNumber): Issue
 
-  def create(n: IssueNumber): Issue
+  def create(req: CreateRequest): Issue
 
-  def cut(n: IssueNumber): Issue
+  def cut(req: CutRequest): Issue
 
-  def crunch(n: IssueNumber): Issue
+  def crunch(reqs: CrunchRequests): Seq[Issue]
 }
