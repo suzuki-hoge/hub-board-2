@@ -13,6 +13,8 @@ object IssueRepositoryImpl extends IssueRepository {
   override def create(req: CreateRequest): Issue = {
     println(req)
 
+    // validate
+
     Issue(IssueNumber(1), req.creation.t, req.creation.b.getOrElse(Body("no body")), req.creation.ls, req.creation.as, req.creation.p.getOrElse(PipelineId("doing")), req.creation.m, req.creation.e)
   }
 

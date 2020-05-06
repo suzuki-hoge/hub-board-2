@@ -1,13 +1,13 @@
-import boot.transfer.StoreRepositoryImpl
+import boot.{Config, Store}
 import cask.{MainRoutes, Request, post}
 import command.api.issue.CommandIssueApi
 
 object Main extends MainRoutes {
 
-  private val store = StoreRepositoryImpl.initialize
+  Config.initialize("/tmp")
 
   @post("/command/issue/create")
-  def create(request: Request): String = CommandIssueApi.create(request, store)
+  def create(request: Request): String = CommandIssueApi.create(request, Store().ps, Store().cm)
 
   initialize()
 }

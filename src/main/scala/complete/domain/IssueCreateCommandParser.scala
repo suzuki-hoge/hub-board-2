@@ -3,7 +3,7 @@ package complete.domain
 import scala.util.parsing.combinator.JavaTokenParsers
 
 object IssueCreateCommandParser extends JavaTokenParsers {
-  def apply(s: String, ls: Seq[Label], as: Seq[Assignee], ps: Seq[PipelineNames], ms: Seq[MilestoneName]): Seq[Candidate] = {
+  def apply(s: String, ls: Seq[Label], as: Seq[Assignee], ps: Seq[PipelineName], ms: Seq[MilestoneName]): Seq[Candidate] = {
     //@formatter:off
     parseAll(command, s) match {
       case Success((_,   Hole(_)),                   _)   => Seq(NoCandidate)

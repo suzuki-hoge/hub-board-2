@@ -19,7 +19,11 @@ case class LabelNames(ls: Seq[LabelName]) {
   private def nonEmpty: Boolean = ls.nonEmpty
 }
 
+case class Label(name: LabelName, color: String)
+
 case class LabelName(v: String)
+
+case class Assignee(name: AssigneeName, iconUrl: String)
 
 case class AssigneeNames(as: Seq[AssigneeName]) {
   def ifMissing(other: AssigneeNames): AssigneeNames = if (other.nonEmpty) other else this
@@ -28,6 +32,10 @@ case class AssigneeNames(as: Seq[AssigneeName]) {
 }
 
 case class AssigneeName(v: String)
+
+case class Pipeline(id: PipelineId, name: PipelineName)
+
+case class PipelineName(v: String)
 
 case class PipelineId(v: String) {
   def ifMissing(other: Option[PipelineId]): Option[PipelineId] = other.orElse(Some(this))

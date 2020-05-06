@@ -56,10 +56,10 @@ object Validator extends JavaTokenParsers {
     }
   }
 
-  def pV(s: String): Either[String, Option[PipelineId]] = {
+  def pV(s: String): Either[String, Option[PipelineName]] = {
     new Regex("-p '([^']+)'", "val").findAllIn(s).matchData.map(_.group("val")).toSeq match {
       //@formatter:off
-      case Seq(v) => Right(Some(PipelineId(v)))
+      case Seq(v) => Right(Some(PipelineName(v)))
       case Seq()  => Right(None)
       case _      => Left("dup pipelines")
       //@formatter:on

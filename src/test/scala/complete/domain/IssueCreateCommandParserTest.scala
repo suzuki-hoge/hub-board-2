@@ -8,7 +8,7 @@ class IssueCreateCommandParserTest extends FunSuite {
 
   private val ls = Seq(Label("開発 - 機能", "#ff0000"), Label("開発 - リファクタ", "#00ff00"), Label("デプロイ - 本番", "#0000ff"))
   private val as = Seq(Assignee("jack", "https://..."), Assignee("jane", "https://..."))
-  private val ps = Seq(PipelineNames("doing"), PipelineNames("reviewing"))
+  private val ps = Seq(PipelineName("doing"), PipelineName("reviewing"))
   private val ms = Seq(MilestoneName("spring 1"), MilestoneName("sprint 2"))
 
   //@formatter:off

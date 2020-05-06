@@ -6,7 +6,7 @@ case class Label(value: String, color: String) extends Candidate
 
 case class Assignee(value: String, iconUrl: String) extends Candidate
 
-case class PipelineNames(value: String) extends Candidate
+case class PipelineName(value: String) extends Candidate
 
 case class MilestoneName(value: String) extends Candidate
 
