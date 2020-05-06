@@ -1,6 +1,6 @@
-package domain.issue
+package command.domain.issue
 
-import domain.milestone.{CurrentMilestoneName, MilestoneName}
+import command.domain.milestone.{CurrentMilestoneName, MilestoneName}
 
 object Helper {
   implicit def intToIssueNumber(n: Int): IssueNumber = IssueNumber(n)

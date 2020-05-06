@@ -1,6 +1,6 @@
-package domain.issue
+package command.domain.issue
 
-import domain.milestone._
+import command.domain.milestone._
 
 case class Issue(n: IssueNumber, orgT: Title, orgB: Body, orgLs: LabelNames, orgAs: AssigneeNames, orgP: PipelineId, orgM: MilestoneName, orgE: Estimate) {
   def copy(reqT: Title, reqB: Option[Body], reqLs: LabelNames, reqAs: AssigneeNames, reqP: Option[PipelineId], reqM: Option[MilestoneName], reqE: Option[Estimate]): CopyRequest = {

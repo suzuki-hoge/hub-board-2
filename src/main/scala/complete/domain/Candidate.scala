@@ -1,4 +1,4 @@
-package complete
+package complete.domain
 
 sealed trait Candidate
 

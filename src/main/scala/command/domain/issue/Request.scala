@@ -1,6 +1,6 @@
-package domain.issue
+package command.domain.issue
 
-import domain.milestone.{CurrentMilestoneName, MilestoneName}
+import command.domain.milestone.{CurrentMilestoneName, MilestoneName}
 
 case class CreateRequest(creation: Creation)
 

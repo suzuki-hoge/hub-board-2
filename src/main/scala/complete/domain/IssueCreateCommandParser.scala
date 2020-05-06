@@ -1,4 +1,4 @@
-package complete
+package complete.domain
 
 import scala.util.parsing.combinator.JavaTokenParsers
 

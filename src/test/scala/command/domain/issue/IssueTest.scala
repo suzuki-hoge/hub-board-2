@@ -1,6 +1,6 @@
-package domain.issue
+package command.domain.issue
 
-import domain.issue.Helper._
+import command.domain.issue.Helper._
 import org.scalatest.FunSuite
 
 class IssueTest extends FunSuite {

@@ -1,4 +1,4 @@
-package complete
+package complete.domain
 
 import org.scalatest.FunSuite
 import org.scalatest.prop.TableDrivenPropertyChecks._

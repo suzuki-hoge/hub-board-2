@@ -1,6 +1,4 @@
-package domain.issue
-
-import domain.milestone._
+package command.domain.issue
 
 case class IssueNumber(v: Int)
 

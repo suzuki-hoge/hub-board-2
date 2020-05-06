@@ -1,4 +1,4 @@
-package domain.issue
+package command.domain.issue
 
 case class CutComment(n: IssueNumber)
 

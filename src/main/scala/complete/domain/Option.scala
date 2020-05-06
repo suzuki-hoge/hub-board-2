@@ -1,4 +1,4 @@
-package complete
+package complete.domain
 
 case class FixedOption(k: OptionKey, v: OptionVal)
 

@@ -2,9 +2,9 @@
 
 note "legend\n\nList<String>: [String]\nTuple<String, Int>: (String, Int)\nOption<String>: <String>" as Note
 
-Note .[hidden]d. domain
+Note .[hidden]d. command
 
-package domain {
+package command {
     package issue {
         class Issue {
             - IssueNumber

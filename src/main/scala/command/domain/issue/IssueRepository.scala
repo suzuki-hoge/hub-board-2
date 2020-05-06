@@ -1,4 +1,4 @@
-package domain.issue
+package command.domain.issue
 
 trait IssueRepository {
   def findOne(n: IssueNumber): Issue

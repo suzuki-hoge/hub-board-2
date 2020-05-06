@@ -1,4 +1,4 @@
-package domain.milestone
+package command.domain.milestone
 
 case class Milestone(n: MilestoneName, s: Start, e: End)
 

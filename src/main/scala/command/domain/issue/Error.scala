@@ -1,4 +1,4 @@
-package domain.issue
+package command.domain.issue
 
 sealed trait Error
 
